@@ -1,0 +1,96 @@
+<?xml version = "1.0"?>
+<!DOCTYPE CleanupRules SYSTEM "CleanupRules.dtd">
+<CleanupRules>
+  <FileCleanup>
+    <CleanupRule>
+      <DirectoryPath SearchSubDirectory = "YES" >DataInterchange/Temp/Debug</DirectoryPath>
+      <Pattern>*</Pattern>
+      <FileAge NumDays = "1" Comparator = "GE"/>
+      <FileSize Size = "0" Comparator = "GE"/>
+    </CleanupRule>
+    <CleanupRule>
+      <DirectoryPath SearchSubDirectory = "YES" >DataInterchange/Temp/LOG</DirectoryPath>
+      <Pattern>*</Pattern>
+      <FileAge NumDays = "1" Comparator = "GE"/>
+      <FileSize Size = "0" Comparator = "GE"/>
+    </CleanupRule>
+    <CleanupRule>
+      <DirectoryPath SearchSubDirectory = "YES" >$(KONGA_TEMP_DIR)</DirectoryPath>
+      <Pattern>*</Pattern>
+      <FileAge NumDays = "1" Comparator = "GE"/>
+      <FileSize Size = "0" Comparator = "GE"/>
+    </CleanupRule>
+    <CleanupRule>
+      <DirectoryPath SearchSubDirectory = "YES" >DataInterchange/Temp</DirectoryPath>
+      <IgnoreSubDirectory>DIFF</IgnoreSubDirectory>
+      <IgnoreSubDirectory>LOG</IgnoreSubDirectory>
+      <IgnoreSubDirectory>Debug</IgnoreSubDirectory>
+      <Pattern>*</Pattern>
+      <NotPattern>*.jtr</NotPattern>
+      <NotPattern>*.scm</NotPattern>
+      <NotPattern>*.tmp</NotPattern>
+      <FileAge NumDays = "1" Comparator = "GE"/>
+      <FileSize Size = "0" Comparator="GE"/>
+    </CleanupRule>
+    <CleanupRule>
+      <DirectoryPath SearchSubDirectory = "NO" >$(KONGA_LOG_DIR)</DirectoryPath>
+      <Pattern>*</Pattern>
+      <FileAge NumDays = "0" Comparator = "GE" />
+      <FileSize Size = "1" SizeUnit="MB" Comparator="GE" />
+      <Compress MaxNumberOfCompressedFiles="5" />
+    </CleanupRule>
+    <CleanupRule>
+      <DirectoryPath SearchSubDirectory = "NO" >tomcat/logs</DirectoryPath>
+      <Pattern>*</Pattern>
+      <FileAge NumDays = "1" Comparator = "GE"/>
+      <FileSize Size = "0" Comparator = "GE"/>
+    </CleanupRule>
+    <CleanupRule>
+      <DirectoryPath SearchSubDirectory = "NO" >tomcat/logs</DirectoryPath>
+      <Pattern>*</Pattern>
+      <FileAge NumDays = "0" Comparator = "GE" />
+      <FileSize Size = "1" SizeUnit="MB" Comparator="GE" />
+      <Compress MaxNumberOfCompressedFiles="5" />
+    </CleanupRule>
+  </FileCleanup>
+  <DatabaseCleanup>
+    <OperationLogArchiveRule>
+      <Age NumDays="1"/>
+      <Status>Success</Status>
+    </OperationLogArchiveRule>
+    <OperationLogArchiveRule>
+      <Age NumDays="1"/>
+      <Status>Warning</Status>
+    </OperationLogArchiveRule>
+    <OperationLogArchiveRule>
+      <Age NumDays="1"/>
+      <Status>Error</Status>
+    </OperationLogArchiveRule>
+
+    <!--
+    The TransferHistoryArchiveRule controls how long the names of transferred files will be remembered.
+    -->
+    <TransferHistoryArchiveRule>
+      <Age NumDays="1"/>
+    </TransferHistoryArchiveRule>
+
+    <MaintenanceRule>
+      <Vacuum Full="true">true</Vacuum>
+      <Reindex>true</Reindex>
+    </MaintenanceRule>
+
+  </DatabaseCleanup>
+
+  <!-- Configure how long you want to keep success/failure files on disk.
+  Set to 0 to disable but that could lead to a lot of disk space being used. Removing this entry defaults to 14 days   -->
+  <ResultFileStoreRule>
+    <Age NumDays="1"/>
+  </ResultFileStoreRule>
+
+  <!-- Configure how long you want to keep transformation data stored when testing transformations and operations.
+  Set to 0 to disable but that could lead to a lot of disk space being used. Removing this entry defaults to one day.   -->
+  <TransformationDataStoreRule>
+    <Age NumDays="1"/>
+  </TransformationDataStoreRule>
+
+</CleanupRules>
